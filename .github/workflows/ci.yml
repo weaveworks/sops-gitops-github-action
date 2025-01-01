@@ -59,7 +59,7 @@ jobs:
         run: cargo fetch
 
       - name: Rustfmt Check
-        uses: actions-rust-lang/rustfmt@v1
+        run: cargo fmt --all -- --check
 
       # Build the project
       - name: Build
