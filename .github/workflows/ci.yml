@@ -87,11 +87,11 @@ jobs:
       - name: Build Docker image
         run: docker build -t ghcr.io/${{ github.repository }}/action:latest .
 
-      # Tag the Docker image with the GitHub tag or commit SHA
+        # Tag the Docker image with the GitHub tag or commit SHA
       - name: Tag Docker image
         run: |
-          if [ "${{ github.event_name }}" == "push" ] && [[ "${{ github.ref }}" == refs/tags/v* ]]; then
-            TAG="${{ github.ref_name#refs/tags/ }}"
+          if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
+            TAG="${{ github.ref#refs/tags/ }}"
           else
             TAG="${{ github.sha }}"
           fi
@@ -99,6 +99,7 @@ jobs:
           docker tag ghcr.io/${{ github.repository }}/action:latest ghcr.io/${{ github.repository }}/action:$TAG
           docker push ghcr.io/${{ github.repository }}/action:latest
           docker push ghcr.io/${{ github.repository }}/action:$TAG
+
 
       # Push Docker image to GitHub Container Registry
       - name: Push Docker image
