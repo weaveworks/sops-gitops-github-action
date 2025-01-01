@@ -1,4 +1,4 @@
-# GitHub Action: Rust-Based SOPS Secret Manager
+# GitHub Action: GitOps SOPS Secret Manager
 
 ## Overview
 
