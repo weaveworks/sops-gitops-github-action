@@ -1,3 +1,6 @@
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fweaveworks%2Fsops-gitops-github-action.svg?type=shield&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2Fweaveworks%2Fsops-gitops-github-action?ref=badge_shield&issueType=license)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fweaveworks%2Fsops-gitops-github-action.svg?type=shield&issueType=security)](https://app.fossa.com/projects/git%2Bgithub.com%2Fweaveworks%2Fsops-gitops-github-action?ref=badge_shield&issueType=security)
+
 # GitHub Action: GitOps SOPS Secret Manager
 
 ## Overview
