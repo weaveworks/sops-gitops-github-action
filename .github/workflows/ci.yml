@@ -87,21 +87,8 @@ jobs:
       - name: Build Docker image
         run: docker build -t ghcr.io/${{ github.repository }}/action:latest .
 
-      # Tag the Docker image with the GitHub tag or commit SHA
-      - name: Tag Docker image
-        run: |
-          if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
-            TAG="${GITHUB_REF#refs/tags/}"
-          else
-            TAG="${GITHUB_SHA}"
-          fi
-          echo "Using tag: $TAG"
-          docker tag ghcr.io/${{ github.repository }}/action:latest ghcr.io/${{ github.repository }}/action:$TAG
-          docker push ghcr.io/${{ github.repository }}/action:latest
-          docker push ghcr.io/${{ github.repository }}/action:$TAG
-
       # Push Docker image to GitHub Container Registry
       - name: Push Docker image
         run: |
           docker push ghcr.io/${{ github.repository }}/action:latest
-          docker push ghcr.io/${{ github.repository }}/action:$TAG
+#          docker push ghcr.io/${{ github.repository }}/action:$TAG
