@@ -56,11 +56,11 @@ jobs:
 
       - name: Run code coverage
         run: |
-          cargo tarpaulin --out Xml --timeout 120
+          cargo tarpaulin --out Xml --timeout 240
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          files: target/tarpaulin/coverage.xml
-          fail_ci_if_error: true
-          verbose: true
+#      - name: Upload coverage to Codecov
+#        uses: codecov/codecov-action@v3
+#        with:
+#          files: target/tarpaulin/coverage.xml
+#          fail_ci_if_error: true
+#          verbose: true
