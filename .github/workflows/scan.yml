@@ -12,7 +12,8 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read # for actions/checkout to fetch code
+  contents: write
+  security-events: write # for codeQL to write security events
 
 jobs:
   fossa:
@@ -32,8 +33,6 @@ jobs:
   trivy:
     name: Trivy
     runs-on: ubuntu-latest
-    permissions:
-      security-events: write # for Trivy to write security events
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -53,8 +52,6 @@ jobs:
   codeql:
     name: CodeQL
     runs-on: ubuntu-latest
-    permissions:
-      security-events: write # for codeQL to write security events
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
