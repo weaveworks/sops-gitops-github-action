@@ -58,6 +58,9 @@ jobs:
       - name: Install dependencies
         run: cargo fetch
 
+      - name: Rustfmt Check
+        uses: actions-rust-lang/rustfmt@v1
+
       # Build the project
       - name: Build
         run: cargo build --release

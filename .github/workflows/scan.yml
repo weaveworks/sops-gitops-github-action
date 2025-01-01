@@ -50,16 +50,33 @@ jobs:
           sarif_file: trivy-results.sarif
 
   codeql:
-    name: CodeQL
+    name: RustAnalize
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@48ab28a6f5dbc2a99bf1e0131198dd8f1df78169 # v3.28.0
+
+      - name: Install cargo-llvm-cov
+        uses: taiki-e/install-action@cargo-llvm-cov
+
+      - name: Install Clippy
+        run: rustup component add clippy
+
+      - name: Install cargo-sonar and run Clippy
+        run: |
+          cargo install cargo-sonar
+          cargo clippy --message-format json > my-clippy-report.json
+          cargo sonar --issues clippy --clippy-path my-clippy-report.json
+
+      - name: Generate code coverage
+        run: cargo llvm-cov --all-features --workspace --lcov --output-path lcov.info
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
-          languages: rust
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@48ab28a6f5dbc2a99bf1e0131198dd8f1df78169 # v3.28.0
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@48ab28a6f5dbc2a99bf1e0131198dd8f1df78169 # v3.28.0
+          args: >
+            -Dsonar.externalIssuesReportPaths=sonar-issues.json
+            -Dcommunity.rust.lcov.reportPaths=lcov.info
