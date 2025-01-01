@@ -1,4 +1,4 @@
-FROM rust:1.83 as builder
+FROM rustlang/rust:nightly as builder
 
 WORKDIR /app
 COPY . .
