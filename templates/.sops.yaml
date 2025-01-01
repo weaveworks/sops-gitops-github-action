@@ -1,0 +1,8 @@
+creation_rules:
+  - path_regex: ./*.application\.k8s\.secrets\.yaml$
+    encrypted_regex: (?<=\b(?:data|stringData):\s*)[\s\S]+?(?=\n^\S)
+  - path_regex: ./*.application\.secrets\.yaml$
+    encrypted_regex: ^(?P<key>[\w._-]+)=(?P<value>\s*.*\s*)$
+  - key_groups:
+      - pgp:
+          - @{{ (datasource "sops").publickey }}

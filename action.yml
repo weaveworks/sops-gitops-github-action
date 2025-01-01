@@ -1,0 +1,19 @@
+name: "My Rust Action"
+description: "A GitHub Action implemented in Rust"
+author: "Your Name"
+runs:
+  using: "docker"
+  image: "docker://ghcr.io/your-username/your-action:latest"
+  args:
+    - "${{ inputs.input1 }}"
+    - "${{ inputs.input2 }}"
+inputs:
+  private_key:
+    description: "Base64-encoded private GPG key"
+    required: true
+  public_keys:
+    description: "Comma-separated list of base64-encoded public GPG keys"
+    required: true
+outputs:
+  output1:
+    description: "The first output value"

@@ -1,0 +1,79 @@
+name: Build, Test, and Publish Docker Action
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
+  pull_request:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Rust
+      - name: Set up Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+
+      # Install Rust dependencies
+      - name: Install dependencies
+        run: cargo fetch
+
+      # Build the project
+      - name: Build
+        run: cargo build --release
+
+      # Run tests
+      - name: Run tests
+        run: cargo test --verbose
+
+  build-and-publish:
+    name: Build and Publish Docker Image
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Log in to GitHub Container Registry
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Build Docker image
+      - name: Build Docker image
+        run: docker build -t ghcr.io/${{ github.repository }}/action:latest .
+
+      # Tag the Docker image with the GitHub tag or commit SHA
+      - name: Tag Docker image
+        run: |
+          if [ "${{ github.event_name }}" == "push" ] && [[ "${{ github.ref }}" == refs/tags/v* ]]; then
+            TAG="${{ github.ref_name }}"
+          else
+            TAG="${{ github.sha }}"
+          fi
+          docker tag ghcr.io/${{ github.repository }}/action:latest ghcr.io/${{ github.repository }}/action:$TAG
+
+      # Push Docker image to GitHub Container Registry
+      - name: Push Docker image
+        run: |
+          docker push ghcr.io/${{ github.repository }}/action:latest
+          docker push ghcr.io/${{ github.repository }}/action:$TAG
