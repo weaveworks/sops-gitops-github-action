@@ -2,4 +2,4 @@
 
 set -euo pipefail
 
-exec /usr/local/bin/my-action "$@"
+exec /usr/local/bin/sops-gitops-github-action "$@"

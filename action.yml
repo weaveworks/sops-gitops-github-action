@@ -1,9 +1,11 @@
-name: "My Rust Action"
-description: "A GitHub Action implemented in Rust"
-author: "Your Name"
+name: "Sops GitOps Github Action"
+description: "A Github action to manage and maintain SOPS secrets for your repository"
+author: "Weaveworks Community"
+maintainer:
+  - "Charles Sibbald"
 runs:
   using: "docker"
-  image: "docker://ghcr.io/your-username/your-action:latest"
+  image: "docker://ghcr.io/weaveworks/sops-gitops-github-action:latest"
   args:
     - "${{ inputs.input1 }}"
     - "${{ inputs.input2 }}"

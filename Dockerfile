@@ -9,7 +9,7 @@ FROM debian:buster-slim
 
 WORKDIR /app
 
-COPY --from=builder /app/target/release/my-action /usr/local/bin/my-action
+COPY --from=builder /app/target/release/sops-gitops-github-action /usr/local/bin/sops-gitops-github-action
 
 COPY scripts/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
