@@ -82,8 +82,8 @@ jobs:
 - Encrypts or updates encryption keys for these files.
 
 ### Notes
-- Ensure all required secrets (e.g., GPG_KEY, GH_TOKEN) are stored securely in the repository settings.
-- This action works seamlessly with SOPS-supported formats (e.g., YAML, JSON).
+- Ensure all required secrets (e.g., GPG_KEY) are stored securely in the repository settings.
+- This action works seamlessly with YAML, JSON not currently supported.
 - For additional debugging, set the DEBUG environment variable in your workflow to true.
 
 ### Development
