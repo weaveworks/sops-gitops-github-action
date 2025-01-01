@@ -105,5 +105,8 @@ docker run -e INPUT_GPG_PRIVATE_KEY="<base64-key>" \
 rust-sops-action
 ```
 
+###
+Dependency report for this GitHub Action is available [here](https://app.fossa.com/reports/7b1b1b3b-1b1b-4b1b-8b1b-1b1b1b1b1b1b).
+
 License
 This action is licensed under the MIT License.
