@@ -91,11 +91,14 @@ jobs:
       - name: Tag Docker image
         run: |
           if [ "${{ github.event_name }}" == "push" ] && [[ "${{ github.ref }}" == refs/tags/v* ]]; then
-            TAG="${{ github.ref_name }}"
+            TAG="${{ github.ref_name#refs/tags/ }}"
           else
             TAG="${{ github.sha }}"
           fi
+          echo "Using tag: $TAG"
           docker tag ghcr.io/${{ github.repository }}/action:latest ghcr.io/${{ github.repository }}/action:$TAG
+          docker push ghcr.io/${{ github.repository }}/action:latest
+          docker push ghcr.io/${{ github.repository }}/action:$TAG
 
       # Push Docker image to GitHub Container Registry
       - name: Push Docker image
