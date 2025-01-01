@@ -59,7 +59,9 @@ jobs:
         run: cargo fetch
 
       - name: Rustfmt Check
-        run: cargo fmt --all -- --check
+        run: |
+          rustup component add --toolchain nightly-x86_64-unknown-linux-gnu rustfmt
+          cargo fmt --all -- --check
 
       # Build the project
       - name: Build
