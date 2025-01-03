@@ -21,6 +21,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y libssl-dev pkg-config clang llvm pkg-config nettle-dev 
+
       # Set up Rust
       - name: Set up Rust
         uses: actions-rs/toolchain@v1
