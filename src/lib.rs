@@ -2,6 +2,8 @@ use anyhow::{Context as AnyhowContext, Error, anyhow};
 use base64::Engine;
 use clap::Parser;
 use glob::glob;
+use sequoia_openpgp as openpgp;
+use openpgp::{Cert, parse::Parse};
 use pgp::types::PublicKeyTrait;
 use pgp::{Deserializable, SignedPublicKey};
 use serde_yaml::Value;
@@ -9,9 +11,6 @@ use std::fs;
 use std::io::Write;
 use std::path::Path;
 use std::process::{Command, Stdio};
-use sequoia_openpgp::Cert;
-use sequoia_openpgp::parse::Parse;
-
 #[derive(Parser, Debug)]
 struct Args {
     /// Base64-encoded private GPG key
