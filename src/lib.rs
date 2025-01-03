@@ -3,14 +3,12 @@ use base64::Engine;
 use clap::Parser;
 use glob::glob;
 use openpgp::{Cert, parse::Parse};
-use pgp::ser::Serialize;
 use pgp::types::PublicKeyTrait;
-use pgp::{Deserializable, Message, SignedPublicKey};
+use pgp::{Deserializable, SignedPublicKey};
 use sequoia_openpgp as openpgp;
 use serde_yaml::Value;
 use std::fs;
-use std::fs::File;
-use std::io::{Read, Write};
+use std::io::Write;
 use std::path::Path;
 use std::process::{Command, Stdio};
 #[derive(Parser, Debug)]
