@@ -2,7 +2,6 @@ use anyhow::{Context as AnyhowContext, Error, anyhow};
 use base64::Engine;
 use clap::Parser;
 use glob::glob;
-use gpgme::{Context as GpgmeContext, Protocol};
 use openpgp::{Cert, parse::Parse};
 use pgp::ser::Serialize;
 use pgp::types::PublicKeyTrait;
