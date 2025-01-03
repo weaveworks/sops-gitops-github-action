@@ -3,7 +3,7 @@ FROM rustlang/rust:nightly as builder
 WORKDIR /app
 COPY . .
 
-RUN apt-get update && apt-get install -y libssl-dev pkg-config clang llvm pkg-config nettle-dev libnettle-dev
+RUN apt-get update && apt-get install -y libssl-dev pkg-config clang llvm pkg-config nettle-dev
 RUN cargo build --release
 
 FROM debian:buster-slim
