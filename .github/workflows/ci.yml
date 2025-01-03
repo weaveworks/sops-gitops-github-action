@@ -74,7 +74,7 @@ jobs:
 
       # Run tests
       - name: Run tests
-        run: cargo test --verbose
+        run: cargo test --lib --bins --tests --verbose
 
   build-and-publish:
     name: Build and Publish Docker Image
