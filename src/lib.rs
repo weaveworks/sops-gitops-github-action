@@ -1,19 +1,19 @@
-use anyhow::{Error, anyhow, Context as AnyhowContext};
+use anyhow::{Context as AnyhowContext, Error, anyhow};
 use base64::Engine;
 use clap::Parser;
 use glob::glob;
+use gpgme::{Context as GpgmeContext, Protocol};
+use openpgp::{Cert, parse::Parse};
+use pgp::ser::Serialize;
+use pgp::types::PublicKeyTrait;
+use pgp::{Deserializable, Message, SignedPublicKey};
+use sequoia_openpgp as openpgp;
 use serde_yaml::Value;
 use std::fs;
 use std::fs::File;
-use gpgme::{Context as GpgmeContext, Protocol};
 use std::io::{Read, Write};
 use std::path::Path;
 use std::process::{Command, Stdio};
-use pgp::{SignedPublicKey, Message, Deserializable};
-use pgp::ser::Serialize;
-use pgp::types::PublicKeyTrait;
-use sequoia_openpgp as openpgp;
-use openpgp::{parse::Parse, Cert};
 #[derive(Parser, Debug)]
 struct Args {
     /// Base64-encoded private GPG key
@@ -35,10 +35,10 @@ pub fn gpg_mock_private_key() -> Result<String, Error> {
 
 pub fn read_public_key(pub_key_file: &str) -> String {
     let key_string = fs::read_to_string(pub_key_file).unwrap();
-    return key_string
+    return key_string;
 }
 
-pub fn get_pubkey_fingerprint(armored_pubkey: &str) -> Result<String, Error>  {
+pub fn get_pubkey_fingerprint(armored_pubkey: &str) -> Result<String, Error> {
     let cert = Cert::from_reader(armored_pubkey.as_bytes())
         .map_err(|err| anyhow!("Failed to parse armored public key: {err}"))?;
 
@@ -57,7 +57,10 @@ pub fn import_gpg_key(key_data: &str) -> anyhow::Result<(), anyhow::Error> {
     let key = SignedPublicKey::from_bytes(key_data.as_bytes())
         .map_err(|e| anyhow!("Failed to parse PGP key: {e}"))?;
 
-    key.fingerprint().as_bytes().iter().for_each(|byte| print!("{:02X}", byte));
+    key.fingerprint()
+        .as_bytes()
+        .iter()
+        .for_each(|byte| print!("{:02X}", byte));
 
     Ok(())
 }
@@ -94,7 +97,6 @@ pub fn update_sops_config(public_keys: &str) -> anyhow::Result<(), anyhow::Error
     Ok(())
 }
 
-
 pub fn get_key_fingerprint(encoded_key: &str) -> anyhow::Result<String> {
     let decoded_key = base64::engine::general_purpose::STANDARD
         .decode(encoded_key)
@@ -125,8 +127,7 @@ pub fn get_key_fingerprint(encoded_key: &str) -> anyhow::Result<String> {
         .wait_with_output()
         .context("Failed to wait for gpg process")?;
 
-    let output_str =
-        String::from_utf8(output.stdout).context("Failed to parse gpg output")?;
+    let output_str = String::from_utf8(output.stdout).context("Failed to parse gpg output")?;
 
     let fingerprint = output_str
         .lines()
@@ -138,7 +139,6 @@ pub fn get_key_fingerprint(encoded_key: &str) -> anyhow::Result<String> {
 
     Ok(encoded)
 }
-
 
 #[allow(unused)]
 pub fn setup_workspace() -> anyhow::Result<(), anyhow::Error> {

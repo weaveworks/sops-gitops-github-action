@@ -6,7 +6,7 @@ use sops_gitops_github_action::update_sops_config;
 
 /// CLI arguments for the sops-gitops-github-action
 #[derive(Debug, Parser)]
-#[command(name = "sops-gitops-github-action")]
+#[command(name = "sops-gitops-github-action1")]
 struct MyArgs {
     /// The base64-encoded private GPG key
     #[arg(long)]
