@@ -12,3 +12,8 @@ clap = { version = "4.0", features = ["derive"] }
 process_control = "5.0.0"
 base64 = "0.22.1"
 glob = "0.3.0"
+tempfile = "3.13.0"
+dotenv = "0.15.0"
+pgp = "0.14.2"
+gpgme = "0.11.0"
+sequoia-openpgp = "1.22.0"
