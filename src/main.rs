@@ -1,6 +1,6 @@
 use anyhow::Result;
 use clap::Parser;
-use dotenv::dotenv;
+use dotenvy::dotenv;
 use sops_gitops_github_action::import_gpg_key;
 use sops_gitops_github_action::update_sops_config;
 
