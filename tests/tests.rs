@@ -9,21 +9,13 @@
     // unused_qualifications
 )]
 
-use base64::Engine;
-use pgp::ser::Serialize;
-use pgp::{Deserializable, Message, SignedPublicKey};
-use sops_gitops_github_action::{
-    create_default_sops_config_file, create_secret_file, find_secret_files, get_key_fingerprint,
-    get_pubkey_fingerprint, gpg_mock_private_key, import_gpg_key, public_keys_provided,
-    read_public_key, set_message, sops_config_file_exists, update_secret_file, update_sops_config,
-};
-use std::fs;
-use std::fs::File;
-use std::io::Read;
+use sops_gitops_github_action::{get_pubkey_fingerprint, read_public_key, set_message};
+
 use std::sync::LazyLock;
-use tempfile::tempdir;
 
 const MOCK_KEY_FOOTPRINT: &str = "9C243A3FDC4EF1474372915F9C1B6F1F746AF12C";
+
+#[allow(dead_code)]
 static GPG_MOCK_PUBLIC_KEY: LazyLock<String> =
     LazyLock::new(|| read_public_key("tests/mock-public.key.asc"));
 
