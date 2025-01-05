@@ -3,6 +3,11 @@
 
 # GitHub Action: GitOps SOPS Secret Manager
 
+## Status
+
+This tool is in active development and is not considered ready for use in production environments or even as a GitHub Action. 
+We are actively working on this tool and will update this README when it is ready for use.
+
 ## Overview
 
 This GitHub Action simplifies managing encrypted secrets using SOPS (Secrets OPerationS) and GPG. The action automates the encryption and decryption of secrets while maintaining a secure configuration, fetching public keys for team members directly from the GitHub API.
