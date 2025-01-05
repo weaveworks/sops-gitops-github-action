@@ -97,6 +97,7 @@ jobs:
           key: ${{ runner.os }}-cargo-target-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
             ${{ runner.os }}-cargo-target-
+          retention-days: 7
 
       - name: Run code coverage
         run: |
