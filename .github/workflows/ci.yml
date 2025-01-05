@@ -58,7 +58,7 @@ jobs:
           key: ${{ runner.os }}-cargo-target-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
             ${{ runner.os }}-cargo-target-
-          retention-days: 7
+          retention-days: 1
 
       # Install Rust dependencies
       - name: Install dependencies
